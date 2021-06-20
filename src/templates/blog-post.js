@@ -1,28 +1,44 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import "./blog-post.scss"
+import { useSetRecoilState } from "recoil"
+import { blogPostTitleState, blogPostSubTitleState } from '../states'
 
-const BlogPostTemplate = ({ data, location }) => {
+
+
+const BlogPostTemplate = ({ data, location,}) => {
   const post = data.markdownRemark
+  // const image = post.frontmatter.image.publicURL
   /** Add code to get image from query here **/
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const { previous, next } = data
-
+  // const { previous, next } = data
+  const setHeaderTitle = useSetRecoilState(blogPostTitleState)
+  const setHeaderSubTitle = useSetRecoilState(blogPostSubTitleState)
+  React.useEffect(() => { 
+    setHeaderTitle(post.frontmatter.title)
+    setHeaderSubTitle("")
+  })
+  
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
         title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        description={post.frontmatter.excerpt}
       />
+  <div className = "outside-container">
+    <div className="content-container">
+    <img src = {post.frontmatter.image.publicURL} alt = "not found" className = {"image"}></img>
+    <div className= "inside-container">
       <article
         className="blog-post"
         itemScope
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
+        <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
         <section
@@ -41,7 +57,7 @@ const BlogPostTemplate = ({ data, location }) => {
             padding: 0,
           }}
         >
-          <li>
+          {/* <li>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
                 ← {previous.frontmatter.title}
@@ -54,9 +70,12 @@ const BlogPostTemplate = ({ data, location }) => {
                 {next.frontmatter.title} →
               </Link>
             )}
-          </li>
+          </li> */}
         </ul>
       </nav>
+      </div>
+    </div>
+  </div>        
     </Layout>
   )
 }
@@ -66,8 +85,8 @@ export default BlogPostTemplate
 export const pageQuery = graphql`
   query BlogPostBySlug(
     $id: String!
-    $previousPostId: String
-    $nextPostId: String
+    # $previousPostId: String
+    # $nextPostId: String
   ) {
     site {
       siteMetadata {
@@ -82,24 +101,10 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
-        # Add gatsby image query here
-      }
-    }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
-    }
-    next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
+        image {
+          publicURL
+        }
+        }
     }
   }
 `

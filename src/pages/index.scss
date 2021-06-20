@@ -1,0 +1,16 @@
+.outside-container{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.home-image{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 15px;
+    width:75%;
+    
+    img{
+        object-fit: cover;
+    }
+}

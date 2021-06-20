@@ -1,0 +1,102 @@
+.nav-container {
+  display: flex;
+  justify-content: center;
+
+  
+.nav{
+    width: 75%;
+    text-decoration: none;
+    display: flex;
+    font-family: "montserrat";
+    text-align: left;
+    text-decoration: none;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    justify-content: space-between;
+    background-color: #F0F0F0;
+
+    .title{
+      text-align: left;
+      font: normal normal bold 33px/40px Montserrat;
+      letter-spacing: 0px;
+      color: #000033;
+      font-size: 33px;
+      justify-content: center;
+    }
+
+    .controls {
+      display: flex;
+
+      
+      @media only screen and (max-width: 767px){
+        display: none;
+      }
+
+      .nav-item{
+        margin-left: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-decoration: none;
+        color: #000033;
+        size: 18px;
+        text-align: right;
+        font: normal normal 600 18px/22px Montserrat;
+        letter-spacing: 0px;
+        opacity: 1;
+        transition: color .3s;
+        
+        &:hover {
+          color: #000033AA !important;
+          a {
+            color: inherit;
+          }
+        }
+
+        .links{
+          text-decoration: none;
+          color: #000033;
+        }
+      }
+    }
+
+    .hamburger {
+      display: block;
+      @media only screen and (min-width: 768px){
+        display: none;
+      }
+    }
+
+
+
+
+  
+  .active-nav-item {
+    color: #333333;
+  }
+  
+}
+
+}
+
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .nav-item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    &:hover {
+      color: #000033AA !important;
+      a {
+        color: inherit;
+      }
+    }
+  }
+  @media only screen and (min-width: 768px){
+    display: none;
+  }
+}
+
